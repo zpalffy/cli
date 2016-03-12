@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+version = "0.1"
+group = "com.eric"
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile 'com.beust:jcommander:+'
+    //compile 'commons-io:commons-io:+'
+    //compile 'commons-codec:commons-codec:+'
+    //compile 'org.apache.commons:commons-lang3:+'
+    
+    //compile 'com.google.code.gson:gson:2.3.1'
+    //compile 'com.google.guava:guava:19.0'
+    //testCompile 'junit:junit:4.12'
+}

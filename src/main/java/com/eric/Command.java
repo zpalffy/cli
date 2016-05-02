@@ -57,17 +57,25 @@ public abstract class Command {
 	/**
 	 * Write to System.out
 	 */
-	protected void out(String format, Object... args) {
-		System.out.println(String.format(format, args));
+	protected void out(Object format, Object... args) {
+		System.out.println(String.format(format == null ? "null" : format.toString(), args));
 	}
 
-	protected void verbose(String format, Object... args) {
+	/**
+	 * Prints a message to stdout if verbose is true. Ex:
+	 * verbose("The file %s does not exist.", file)
+	 */
+	protected void verbose(Object format, Object... args) {
 		if (verbose) {
 			out(format, args);
 		}
 	}
 
-	protected void debug(String format, Object... args) {
+	/**
+	 * Prints a debug message to stdout if debug is true. Ex:
+	 * debug("The file %s does not exist.", file)
+	 */
+	protected void debug(Object format, Object... args) {
 		if (debug) {
 			out(format, args);
 		}
@@ -77,7 +85,7 @@ public abstract class Command {
 	 * Write the message to System.err. If 'debug' flag is on, print the stack
 	 * trace to System.err as well.
 	 */
-	protected void err(String message, Exception ex) {
+	protected void err(Object message, Exception ex) {
 		err(message);
 
 		if (debug) {
@@ -88,15 +96,21 @@ public abstract class Command {
 	/**
 	 * Write the message to System.err.
 	 */
-	protected void err(String format, Object... args) {
-		System.err.println(String.format(format, args));
+	protected void err(Object format, Object... args) {
+		System.err.println(String.format(format == null ? "null" : format.toString(), args));
 	}
 
+	/**
+	 * Terminates the application with the given exit code.
+	 */
 	protected void exit(int code) {
 		debug("Exiting with code %s", code);
 		System.exit(code);
 	}
 
+	/**
+	 * Retrieve the current directory.
+	 */
 	public String getWorkingDirectory() {
 		return System.getProperty("user.dir");
 	}

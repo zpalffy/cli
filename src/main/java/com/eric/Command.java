@@ -86,7 +86,8 @@ public abstract class Command {
 	 * trace to System.err as well.
 	 */
 	protected void err(Object message, Exception ex) {
-		err(message);
+		err("There was a problem, trying running with the --debug option for more details.  %s",
+				message);
 
 		if (debug) {
 			ex.printStackTrace();
@@ -139,7 +140,8 @@ public abstract class Command {
 				}
 			}
 		} catch (NullPointerException npe) {
-			cmd.err("There was a problem with the program, trying running with the -d option for more details.", npe);
+			cmd.err("There was a problem, trying running with the --debug option for more details.",
+					npe);
 			cmd.exit(3);
 		} catch (Exception e) {
 			cmd.err(e.getMessage(), e);

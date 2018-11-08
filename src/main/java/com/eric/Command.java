@@ -86,8 +86,7 @@ public abstract class Command {
 	 * trace to System.err as well.
 	 */
 	protected void err(Object message, Exception ex) {
-		err("There was a problem, trying running with the --debug option for more details.  %s",
-				message);
+		err("There was a problem, trying running with the --debug option for more details.  %s", message);
 
 		if (debug) {
 			ex.printStackTrace();
@@ -116,6 +115,14 @@ public abstract class Command {
 		return System.getProperty("user.dir");
 	}
 
+	/**
+	 * Expands a path to include the absolute path to the _current_ user's home
+	 * directory.
+	 */
+	public String expandHomeDir(String path) {
+		return path.replaceFirst("^~", System.getProperty("user.home"));
+	}
+
 	public static void main(Command cmd, String... args) {
 		JCommander jc = new JCommander(cmd);
 
@@ -140,8 +147,7 @@ public abstract class Command {
 				}
 			}
 		} catch (NullPointerException npe) {
-			cmd.err("There was a problem, trying running with the --debug option for more details.",
-					npe);
+			cmd.err("There was a problem, trying running with the --debug option for more details.", npe);
 			cmd.exit(3);
 		} catch (Exception e) {
 			cmd.err(e.getMessage(), e);

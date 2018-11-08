@@ -7,17 +7,9 @@ repositories {
     mavenLocal()
 }
 
-version = "0.1"
+version = "0.2"
 group = "com.eric"
 
-// In this section you declare the dependencies for your production and test code
 dependencies {
-    compile 'com.beust:jcommander:+'
-    //compile 'commons-io:commons-io:+'
-    //compile 'commons-codec:commons-codec:+'
-    //compile 'org.apache.commons:commons-lang3:+'
-    
-    //compile 'com.google.code.gson:gson:2.3.1'
-    //compile 'com.google.guava:guava:19.0'
-    //testCompile 'junit:junit:4.12'
+    compile 'com.beust:jcommander:1.72'
 }

@@ -2,6 +2,7 @@ package com.eric;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Scanner;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -30,6 +31,13 @@ public abstract class Command {
 
 	@Parameter(names = "--debug", hidden = true)
 	private boolean debug;
+
+	/**
+	 * Lifecycle method called before validation. This is a good spot to do any
+	 * parameter conversions that need to happen.
+	 */
+	protected void beforeValidate() {
+	}
 
 	/**
 	 * Override to provide messages that are displayed if certain prerequisites
@@ -116,6 +124,21 @@ public abstract class Command {
 	}
 
 	/**
+	 * @return system.in as a String.
+	 */
+	protected String systemIn() {
+		Scanner sc = new Scanner(System.in);
+		StringBuilder sb = new StringBuilder();
+
+		while (sc.hasNextLine()) {
+			sb.append(sc.nextLine());
+		}
+
+		sc.close();
+		return sb.toString();
+	}
+
+	/**
 	 * Expands a path to include the absolute path to the _current_ user's home
 	 * directory.
 	 */
@@ -133,6 +156,8 @@ public abstract class Command {
 			if (cmd.help) {
 				jc.usage();
 			} else {
+				cmd.beforeValidate();
+
 				Collection<String> messages = new ArrayList<String>();
 				cmd.validate(messages);
 				if (messages.isEmpty()) {

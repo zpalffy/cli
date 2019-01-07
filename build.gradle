@@ -7,9 +7,18 @@ repositories {
     mavenLocal()
 }
 
-version = "0.2"
+version = "0.3"
 group = "com.eric"
 
 dependencies {
     compile 'com.beust:jcommander:1.72'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
 }
